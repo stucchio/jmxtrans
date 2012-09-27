@@ -631,6 +631,10 @@ public class JmxUtils {
 	 * @return the key string
 	 */
 	public static String getKeyString(Query query, Result result, Entry<String, Object> values, List<String> typeNames, String rootPrefix) {
+                if (query.getQueryLabel() != null) {
+                    return query.getQueryLabel() + "." + result.getAttributeName();
+                }
+
 		String keyStr = null;
 		if (values.getKey().startsWith(result.getAttributeName())) {
 			keyStr = values.getKey();

@@ -16,13 +16,13 @@ import com.googlecode.jmxtrans.util.PropertyResolver;
 
 /**
  * Represents a JMX Query to ask for obj, attr and one or more keys.
- * 
+ *
  * Once the query has been executed, it'll have a list of results.
- * 
+ *
  * @author jon
  */
 @JsonSerialize(include = Inclusion.NON_NULL)
-@JsonPropertyOrder(value = { "obj", "attr", "typeNames", "resultAlias", "keys", "outputWriters" })
+@JsonPropertyOrder(value = { "obj", "attr", "typeNames", "resultAlias", "keys", "outputWriters", "queryLabel" })
 public class Query {
 
 	private Server server;
@@ -34,6 +34,7 @@ public class Query {
 	private List<OutputWriter> outputWriters;
 	private List<Result> results;
 	private Set<String> typeNames;
+        private String queryLabel;
 
 	public Query() {
 	}
@@ -50,6 +51,14 @@ public class Query {
 	public Query(String obj, List<String> attr) {
 		this.obj = obj;
 		this.attr = attr;
+	}
+
+        public void setQueryLabel(String queryLabel) {
+            this.queryLabel = queryLabel;
+        }
+
+	public String getQueryLabel() {
+            return queryLabel;
 	}
 
 	/**
@@ -90,9 +99,9 @@ public class Query {
 	 * The list of type names used in a JMX bean string when querying with a
 	 * wildcard which is used to expose the actual type name value to the key
 	 * string. e.g. for this JMX name
-	 * 
+	 *
 	 * typeName=name=PS Eden Space,type=MemoryPool
-	 * 
+	 *
 	 * If you add a typeName("name"), then it'll retrieve 'PS Eden Space' from
 	 * the string
 	 */
@@ -171,7 +180,7 @@ public class Query {
 
 	@Override
 	public String toString() {
-		return "Query [obj=" + obj + ", resultAlias=" + resultAlias + ", attr=" + attr + "]";
+		return "Query [obj=" + obj + ", resultAlias=" + resultAlias + ", attr=" + attr + ", queryLabel=" + queryLabel + "]";
 	}
 
 	/** */
